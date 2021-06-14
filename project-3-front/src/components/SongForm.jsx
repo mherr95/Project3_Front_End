@@ -7,11 +7,12 @@ class SongForm extends Component {
         super(pros)
 
         this.state = {
-            artist: '',
-            song: '',
+            artists: '',
+            songs: '',
         }
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
 
@@ -24,8 +25,8 @@ class SongForm extends Component {
         fetch(songsURL , {
             method: 'POST',
             body: JSON.stringify({
-                artist: this.state.artist,
-                song: this.state.song
+                artists: this.state.artists,
+                songs: this.state.songs
             }),
             headers: {
                 "Content-Type" : "application/json"
@@ -35,8 +36,8 @@ class SongForm extends Component {
         .then(data => {
             this.props.handleAddSong(data)
             this.setState({
-                artist: '',
-                song: ''
+                artists: '',
+                songs: ''
             })
         })
         .catch(error => console.log({'Error': error}))
@@ -45,19 +46,19 @@ class SongForm extends Component {
     render() { 
         return ( 
             <div>
-                <form>
-                    <label htmlFor="artist"></label>
+                <form onSubmit={this.handleSubmit}>
+                    <label htmlFor="artists"></label>
                     <input 
                         type="text"
-                        id="artist"
+                        id="artists"
                         onChange = {this.handleChange}
                         value = {this.state.artist}
                         placeholder = 'Add Artist'
                     />
-                    <label htmlFor="song"></label>
+                    <label htmlFor="songs"></label>
                     <input 
                         type="text"
-                        id="song" 
+                        id="songs" 
                         onChange = {this.handleChange}
                         value = {this.state.song}
                         placeholder = 'Add Song'
