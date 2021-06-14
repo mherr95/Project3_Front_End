@@ -51,19 +51,19 @@ export default class App extends Component {
     this.getSongs()
   }
 
-  handleAddSong (song) {
-    const copySongs = [...this.state.songs]
-    copySongs.unshift(song)
-    this.setState({
-      songs: copySongs,
-    })
-    // window.location.reload()
-  }
+  // handleAddSong (song) {
+  //   const copySongs = [...this.state.songs]
+  //   copySongs.unshift(song)
+  //   this.setState({
+  //     song: copySongs,
+  //   })
+  // }
 
   getSongs() {
     fetch(songURL)
     .then(res => {return res.json()})
-    .then(data => this.setState({songs: data}))
+    .then(data => {
+      this.setState({songs: data})})
   }
 
   deleteSong(id) {
@@ -76,11 +76,10 @@ export default class App extends Component {
           const copySongs = [...this.state.songs]
           copySongs.splice(findIndex, 1)
           this.setState({
-            song: copySongs
+            songs: copySongs
           })
         }
       })
-    window.location.reload()
   }
 
 
@@ -89,7 +88,7 @@ export default class App extends Component {
       <div>
         <h1>My favorite things</h1>
         <h3>Favorite Songs</h3>
-        <SongForm handleAddSong = {() => this.handleAddSong} />
+        <SongForm  getSongs={() => this.getSongs()}/>
         <table>
           <tbody>
             { this.state.songs.map(song => {
