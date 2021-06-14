@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const songURL = 'http://localhost:3003/songs'
+const songURL = 'http://localhost:3003/songs/'
 
 class SongForm extends Component {
     constructor(pros){
