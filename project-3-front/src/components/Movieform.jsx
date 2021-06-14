@@ -20,7 +20,7 @@ export default class Movieform extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        fetch(moviesURL, {
+        fetch(moviesURL,'/movies', {
           method: 'POST',
           body: JSON.stringify({
               title: this.state.title,

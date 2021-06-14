@@ -21,7 +21,7 @@ class SongForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch(songsURL , {
+        fetch(songsURL , '/songs', {
             method: 'POST',
             body: JSON.stringify({
                 artist: this.state.artist,
