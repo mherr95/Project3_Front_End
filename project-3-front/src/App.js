@@ -21,19 +21,35 @@ export default class App extends Component {
   /// Movies
   //////////////
 
-  handleAddMovie(movie) {
-    const copyMovie = [...this.state.movies]
-    copyMovie.unshift(movie)
-    this.setState({
-      movies: copyMovie,
-    })
-  }
+  // handleAddMovie(movie) {
+  //   const copyMovie = [...this.state.movies]
+  //   copyMovie.unshift(movie)
+  //   this.setState({
+  //     movies: copyMovie,
+  //   })
+  // }
 
 
   getMovie() {
     fetch(movieURL)
     .then(res => {return res.json()})
     .then(data => this.setState({movies: data}))
+  }
+
+  deleteMovie(id) {
+    fetch(movieURL + id, {
+      method: 'DELETE'
+    })
+      .then( res => {
+        if(res.status === 200) {
+          const findIndex = this.state.movies.findIndex(movie => movie._id === id)
+          const copyMovies = [...this.state.movies]
+          copyMovies.splice(findIndex, 1)
+          this.setState({
+            movies: copyMovies
+          })
+        }
+      })
   }
 
 
@@ -47,18 +63,19 @@ export default class App extends Component {
     this.getMovie()
   }
 
-  handleAddSong (song) {
-    const copySongs = [...this.state.songs]
-    copySongs.unshift(song)
-    this.setState({
-      songs: copySongs,
-    })
-  }
+  // handleAddSong (song) {
+  //   const copySongs = [...this.state.songs]
+  //   copySongs.unshift(song)
+  //   this.setState({
+  //     song: copySongs,
+  //   })
+  // }
 
   getSongs() {
     fetch(songURL)
     .then(res => {return res.json()})
-    .then(data => this.setState({songs: data}))
+    .then(data => {
+      this.setState({songs: data})})
   }
 
   deleteSong(id) {
@@ -83,7 +100,7 @@ export default class App extends Component {
       <div>
         <h1>My favorite things</h1>
         <h3>Favorite Songs</h3>
-        <SongForm handleAddSong = {() => this.handleAddSong} />
+        <SongForm  getSongs={() => this.getSongs()}/>
         <table>
           <tbody>
             { this.state.songs.map(song => {
@@ -101,7 +118,7 @@ export default class App extends Component {
           </tbody>
         </table>
         <h3>Favorite Movies</h3>
-        <Movieform handleAddMovie={() => this.handleAddMovie}/>
+        <Movieform getMovie = { () => this.getMovie() } />
         <table>
           <tbody>
             {this.state.movies.map(movie => {
@@ -111,7 +128,7 @@ export default class App extends Component {
                   <td>{movie.year}</td>
                   <td>{movie.director}</td>
                   <td>{movie.category}</td>
-                  <td>hello</td>
+                  <td><button onDoubleClick={() => this.deleteMovie(movie._id)}>&#128465;</button></td>
                 </tr>
               )
             })}

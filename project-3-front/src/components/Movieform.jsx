@@ -33,7 +33,7 @@ export default class Movieform extends Component {
           }
         }).then(res => {return res.json()})
           .then(data => {
-            this.props.handleAddMovie(data)
+            this.props.getMovie()
             this.setState({
               title: '',
               year: 0,
