@@ -2,14 +2,10 @@ import React, { Component } from "react";
 import Movieform from "./components/Movieform";
 import SongForm from "./components/SongForm";
 
-<<<<<<< HEAD
-const songsURL = "http://localhost:3003/songs";
-const moviesURL = "http://localhost:3003/movies";
-=======
+const songURL = "http://localhost:3003/songs";
+const movieURL = "http://localhost:3003/movies";
 
-const songURL = 'http://localhost:3003/songs/'
-const movieURL = 'http://localhost:3003/movies/'
->>>>>>> 5c8bbed7e5450acaac730d83e14e9be1e79bba49
+
 
 export default class App extends Component {
   constructor(props) {
@@ -17,14 +13,9 @@ export default class App extends Component {
 
     this.state = {
       songs: [],
-<<<<<<< HEAD
-      movies: [],
-    };
-=======
       movies: []
     }
 
->>>>>>> 5c8bbed7e5450acaac730d83e14e9be1e79bba49
   }
 
   //////////////
@@ -38,32 +29,6 @@ export default class App extends Component {
 
 
   getMovie() {
-<<<<<<< HEAD
-    fetch(moviesURL)
-      .then(
-        (data) => {
-          return data.json();
-        },
-        (err) => console.log(err)
-      )
-      .then(
-        (parsedData) => this.setState({ movie: parsedData }),
-        (err) => console.log(err)
-      );
-  }
-
-  handleAddMovie(movie) {
-    const copyMovie = [...this.state.movie];
-    copyMovie.unshift(movie);
-    this.setState({
-      movie: copyMovie,
-      title: "",
-      year: 0,
-      director: "",
-      category: "",
-    });
-    this.handleSubmit = this.handleSubmit.bind(this);
-=======
     fetch(movieURL)
     .then(res => {return res.json()})
     .then(data => this.setState({movies: data}))
@@ -75,44 +40,12 @@ export default class App extends Component {
     this.setState({
       movies: copyMovie,
     })
->>>>>>> 5c8bbed7e5450acaac730d83e14e9be1e79bba49
   }
 
   /////////////////
   // SONGS CODE
   ////////////////
 
-<<<<<<< HEAD
-  handleChange(event) {
-    this.setState({ [event.currentTarget.id]: event.currentTarget.value });
-  }
-
-  handleAddSong(event) {
-    event.preventDefault();
-
-    const newSong = {
-      title: this.state.title,
-      artist: this.state.artist,
-    };
-
-    const updatedSongs = [...this.state.playlist, newSong];
-
-    this.setState({
-      playlist: updatedSongs,
-      title: "",
-      artist: "",
-    });
-  }
-
-  getSongs() {
-    fetch(songsURL)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => this.setState({ songs: data }));
-  }
-
-=======
   componentDidMount(){
     this.getSongs()
   }
@@ -150,19 +83,21 @@ export default class App extends Component {
   }
 
 
->>>>>>> 5c8bbed7e5450acaac730d83e14e9be1e79bba49
   render() {
     return (
       <div>
         <h1>My favorite things</h1>
         <h3>Favorite Songs</h3>
-<<<<<<< HEAD
-        <SongForm handleAddSong={this.handleAddSong} />
-        <h3>Favorite Movies</h3>
-        <Movieform handleAddMovie={this.handleAddMovie} />
-=======
         <SongForm handleAddSong = {() => this.handleAddSong} />
         <table>
+          <tbody>
+            <tr>
+              <th>Artist</th>
+              <th>Song Title</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </tbody>
           <tbody>
             { this.state.songs.map(song => {
               return (
@@ -180,7 +115,6 @@ export default class App extends Component {
         </table>
         <h3>Favorite Movies</h3>
         <Movieform handleAddMovie={() => this.handleAddMovie}/>
->>>>>>> 5c8bbed7e5450acaac730d83e14e9be1e79bba49
       </div>
     );
   }

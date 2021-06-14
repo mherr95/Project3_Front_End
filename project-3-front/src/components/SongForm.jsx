@@ -22,11 +22,7 @@ class SongForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-<<<<<<< HEAD
-        fetch(songsURL , '/songs', {
-=======
         fetch(songURL , {
->>>>>>> 5c8bbed7e5450acaac730d83e14e9be1e79bba49
             method: 'POST',
             body: JSON.stringify({
                 artist: this.state.artist,
@@ -69,6 +65,7 @@ class SongForm extends Component {
                     />
                     <input type="submit" value="Add Song"/>
                 </form>
+                <br></br>
             </div>
          );
     }
