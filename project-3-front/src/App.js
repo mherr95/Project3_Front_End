@@ -16,6 +16,28 @@ export default class App extends Component {
     }
   }
 
+  //////////////
+  /// Movies
+  //////////////
+  getMovie() {
+    fetch(moviesURL)
+      .then(data => { return data.json()}, err => console.log(err))
+      .then(parsedData => this.setState({movie: parsedData}), err => console.log(err))
+  }
+
+  handleAddMovie(movie) {
+    const copyMovie = [...this.state.movie]
+    copyMovie.unshift(movie)
+    this.setState({
+      movie: copyMovie,
+      title: '',
+      year: 0,
+      director: '',
+      category: '' 
+    })
+  }
+
+
 
   /////////////////
   // SONGS CODE
@@ -44,7 +66,7 @@ export default class App extends Component {
         <h3>Favorite Songs</h3>
         <SongForm handleAddSong = {this.handleAddSong} />
         <h3>Favorite Movies</h3>
-        <Movieform />
+        <Movieform handleAddMovie={this.handleAddMovie}/>
       </div>
     )
   }

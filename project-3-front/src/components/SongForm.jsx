@@ -62,7 +62,7 @@ class SongForm extends Component {
                         value = {this.state.song}
                         placeholder = 'Add Song'
                     />
-                    <input type="submit Song"/>
+                    <input type="submit" value="Add Song"/>
                 </form>
             </div>
          );
