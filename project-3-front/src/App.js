@@ -15,6 +15,28 @@ export default class App extends Component {
     }
   }
 
+  //////////////
+  /// Movies
+  //////////////
+  getMovie() {
+    fetch(songsURL)
+      .then(data => { return data.json()}, err => console.log(err))
+      .then(parsedData => this.setState({movie: parsedData}), err => console.log(err))
+  }
+
+  handleAddMovie(movie) {
+    const copyMovie = [...this.state.movie]
+    copyMovie.unshift(movie)
+    this.setState({
+      movie: copyMovie,
+      title: '',
+      year: 0,
+      director: '',
+      category: '' 
+    })
+  }
+
+
   getSongs() {
     fetch(songsURL)
     .then(res => {return res.json()})
@@ -26,7 +48,7 @@ export default class App extends Component {
     return (
       <div>
         <h1>My favorite things</h1>
-        <Movieform />
+        <Movieform handleAddMovie={this.handleAddMovie}/>
         <h3>Favorite Songs</h3>
         <h3>Favorite Movies</h3>
       </div>
