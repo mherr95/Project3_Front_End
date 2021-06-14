@@ -21,10 +21,13 @@ export default class App extends Component {
   //////////////
   /// Movies
   //////////////
-  // getMovie() {
-  //   fetch(movieURL)
-  //     .then(data => { return data.json()}, err => console.log(err))
-  //     .then(parsedData => this.setState({movie: parsedData}), err => console.log(err))
+
+  // handleAddMovie(movie) {
+  //   const copyMovie = [...this.state.movies]
+  //   copyMovie.unshift(movie)
+  //   this.setState({
+  //     movies: copyMovie,
+  //   })
   // }
 
 
@@ -34,12 +37,20 @@ export default class App extends Component {
     .then(data => this.setState({movies: data}))
   }
 
-  handleAddMovie(movie) {
-    const copyMovie = [...this.state.movies]
-    copyMovie.unshift(movie)
-    this.setState({
-      movies: copyMovie,
+  deleteMovie(id) {
+    fetch(movieURL + id, {
+      method: 'DELETE'
     })
+      .then( res => {
+        if(res.status === 200) {
+          const findIndex = this.state.movies.findIndex(movie => movie._id === id)
+          const copyMovies = [...this.state.movies]
+          copyMovies.splice(findIndex, 1)
+          this.setState({
+            movies: copyMovies
+          })
+        }
+      })
   }
 
 
@@ -50,6 +61,7 @@ export default class App extends Component {
 
   componentDidMount(){
     this.getSongs()
+    this.getMovie()
   }
 
   // handleAddSong (song) {
@@ -131,7 +143,22 @@ export default class App extends Component {
           </tbody>
         </table>
         <h3>Favorite Movies</h3>
-        <Movieform handleAddMovie={() => this.handleAddMovie}/>
+        <Movieform getMovie = { () => this.getMovie() } />
+        <table>
+          <tbody>
+            {this.state.movies.map(movie => {
+              return (
+                <tr key={movie._id}>
+                  <td>{movie.title}</td>
+                  <td>{movie.year}</td>
+                  <td>{movie.director}</td>
+                  <td>{movie.category}</td>
+                  <td><button onDoubleClick={() => this.deleteMovie(movie._id)}>&#128465;</button></td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     )
   }
