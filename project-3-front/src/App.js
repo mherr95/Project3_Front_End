@@ -44,6 +44,7 @@ export default class App extends Component {
 
   componentDidMount(){
     this.getSongs()
+    this.getMovie()
   }
 
   handleAddSong (song) {
@@ -101,6 +102,21 @@ export default class App extends Component {
         </table>
         <h3>Favorite Movies</h3>
         <Movieform handleAddMovie={() => this.handleAddMovie}/>
+        <table>
+          <tbody>
+            {this.state.movies.map(movie => {
+              return (
+                <tr key={movie._id}>
+                  <td>{movie.title}</td>
+                  <td>{movie.year}</td>
+                  <td>{movie.director}</td>
+                  <td>{movie.category}</td>
+                  <td>hello</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     )
   }
