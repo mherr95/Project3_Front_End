@@ -13,7 +13,8 @@ export default class App extends Component {
 
     this.state = {
       songs: [],
-      movies: []
+      movies: [],
+      showForm: false
     }
 
   }
@@ -93,6 +94,10 @@ export default class App extends Component {
       })
   }
 
+  toggleEdit() {
+    this.setState({showForm: !this.state.showForm})
+  }
+
 
   render() {
     return (
@@ -112,13 +117,33 @@ export default class App extends Component {
           <tbody>
             { this.state.songs.map(song => {
               return (
-                <tr key={song._id} >
-                  <td>{song.artist}</td>
-                  <td>{song.song}</td>
-                  <td><button>Edit</button></td>
-                  <td><button onDoubleClick={() => this.deleteSong(song._id)}>&#128465;</button></td>
-                </tr>
-
+                  <tr key={song._id} >
+                    <td>{song.artist}</td>
+                    <td>{song.song}</td>
+                    <td><button onClick={() => this.toggleEdit()}>&#9997;</button></td>
+                    { this.state.showForm &&
+                        <td>
+                          <form >
+                            <label htmlFor="artist"></label>
+                            <input 
+                                type="text"
+                                id="artist"
+                                defaultValue = {song.artist}
+                                placeholder = 'Add Artist'
+                            />
+                            <label htmlFor="song"></label>
+                            <input 
+                                type="text"
+                                id="song" 
+                                defaultValue = {song.song}
+                                placeholder = 'Add Song'
+                            />
+                            <input type="submit" value="Update Song"/>
+                          </form>
+                        </td>
+                      }
+                    <td><button onDoubleClick={() => this.deleteSong(song._id)}>&#128465;</button></td>
+                  </tr>
               )
             })
             }
