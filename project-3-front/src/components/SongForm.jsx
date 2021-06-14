@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const songsURL = 'http://localhost:3003/songs'
+const songURL = 'http://localhost:3003/songs'
 
 class SongForm extends Component {
     constructor(pros){
@@ -22,7 +22,7 @@ class SongForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch(songsURL , {
+        fetch(songURL , {
             method: 'POST',
             body: JSON.stringify({
                 artist: this.state.artist,
