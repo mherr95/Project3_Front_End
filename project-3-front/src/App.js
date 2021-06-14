@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import Movieform from './components/Movieform'
-import SongForm from './components/SongForm'
+
+import React, { Component } from "react";
+import Movieform from "./components/Movieform";
+import SongForm from "./components/SongForm";
 import EditSong from './components/EditSong'
 
-
-const songURL = 'http://localhost:3003/songs/'
-const movieURL = 'http://localhost:3003/movies/'
+const songURL = "http://localhost:3003/songs/"
+const movieURL = "http://localhost:3003/movies/"
 
 export default class App extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
       songs: [],
@@ -53,8 +53,6 @@ export default class App extends Component {
         }
       })
   }
-
-
 
   /////////////////
   // SONGS CODE
