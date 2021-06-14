@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Movieform from "./components/Movieform";
 import SongForm from "./components/SongForm";
 
-const songURL = "http://localhost:3003/songs";
-const movieURL = "http://localhost:3003/movies";
+const songURL = "http://localhost:3003/songs/";
+const movieURL = "http://localhost:3003/movies/";
 
 
 
@@ -100,48 +100,23 @@ export default class App extends Component {
 
 
   render() {
-    return (
+    if(this.state.showForm) {
+      return (
+        <EditSong toggleEdit={this.toggleEdit} song={this.state.selectedSong} />
+      )
+    } else {return (
       <div>
         <h1>My favorite things</h1>
         <h3>Favorite Songs</h3>
         <SongForm  getSongs={() => this.getSongs()}/>
         <table>
           <tbody>
-            <tr>
-              <th>Artist</th>
-              <th>Song Title</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          </tbody>
-          <tbody>
             { this.state.songs.map(song => {
               return (
                   <tr key={song._id} >
                     <td>{song.artist}</td>
                     <td>{song.song}</td>
-                    <td><button onClick={() => this.toggleEdit()}>&#9997;</button></td>
-                    { this.state.showForm &&
-                        <td>
-                          <form >
-                            <label htmlFor="artist"></label>
-                            <input 
-                                type="text"
-                                id="artist"
-                                defaultValue = {song.artist}
-                                placeholder = 'Add Artist'
-                            />
-                            <label htmlFor="song"></label>
-                            <input 
-                                type="text"
-                                id="song" 
-                                defaultValue = {song.song}
-                                placeholder = 'Add Song'
-                            />
-                            <input type="submit" value="Update Song"/>
-                          </form>
-                        </td>
-                      }
+                    <td><button onClick={() => this.toggleEdit(song)} >&#9997;</button></td>
                     <td><button onDoubleClick={() => this.deleteSong(song._id)}>&#128465;</button></td>
                   </tr>
               )
@@ -150,19 +125,8 @@ export default class App extends Component {
           </tbody>
         </table>
         <h3>Favorite Movies</h3>
-        
         <Movieform getMovie = { () => this.getMovie() } />
         <table>
-
-        <tbody>
-            <tr>
-              <th>Title</th>
-              <th>Year</th>
-              <th>Director</th>
-              <th>Category</th>
-            </tr>
-          </tbody>
-          
           <tbody>
             {this.state.movies.map(movie => {
               return (
@@ -178,6 +142,8 @@ export default class App extends Component {
           </tbody>
         </table>
       </div>
-    );
+    )}
+    
   }
 }
+

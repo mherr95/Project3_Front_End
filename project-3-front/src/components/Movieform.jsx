@@ -85,7 +85,6 @@ export default class Movieform extends Component {
                 ></input>
                 <input type="submit" value="Add Movie"></input>
             </form>
-            <br></br>
             </div>
         )
     }

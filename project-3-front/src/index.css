@@ -1,7 +1,7 @@
-table {
+/* table {
     width: 400px;
     border-collapse: collapse;
-    /* border-spacing: 40px; */
+    
   }
   table th {
     text-align: left;
@@ -17,4 +17,4 @@ table {
 
   tr:nth-child(odd) {
     background-color: rgba(53, 119, 126, 0.267);
-  }
+  } */

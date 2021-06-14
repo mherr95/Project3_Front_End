@@ -65,7 +65,6 @@ class SongForm extends Component {
                     />
                     <input type="submit" value="Add Song"/>
                 </form>
-                <br></br>
             </div>
          );
     }
