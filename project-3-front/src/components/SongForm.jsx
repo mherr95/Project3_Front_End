@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const songsURL = 'http://localhost:3003/songs'
+const songURL = 'http://localhost:3003/songs/'
 
 class SongForm extends Component {
     constructor(pros){
@@ -12,6 +12,7 @@ class SongForm extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
 
@@ -21,7 +22,11 @@ class SongForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+<<<<<<< HEAD
         fetch(songsURL , '/songs', {
+=======
+        fetch(songURL , {
+>>>>>>> 5c8bbed7e5450acaac730d83e14e9be1e79bba49
             method: 'POST',
             body: JSON.stringify({
                 artist: this.state.artist,
@@ -45,7 +50,7 @@ class SongForm extends Component {
     render() { 
         return ( 
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <label htmlFor="artist"></label>
                     <input 
                         type="text"
