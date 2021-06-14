@@ -1,11 +1,11 @@
+
 import React, { Component } from "react";
 import Movieform from "./components/Movieform";
 import SongForm from "./components/SongForm";
+import EditSong from './components/EditSong'
 
-const songURL = "http://localhost:3003/songs/";
-const movieURL = "http://localhost:3003/movies/";
-
-
+const songURL = "http://localhost:3003/songs/"
+const movieURL = "http://localhost:3003/movies/"
 
 export default class App extends Component {
   constructor(props) {
@@ -94,10 +94,10 @@ export default class App extends Component {
       })
   }
 
-  toggleEdit() {
-    this.setState({showForm: !this.state.showForm})
+  toggleEdit(song) {
+    console.log('test')
+    this.setState({showForm: !this.state.showForm, selectedSong: song}, () => {this.getSongs()})
   }
-
 
   render() {
     if(this.state.showForm) {
