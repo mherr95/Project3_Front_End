@@ -47,15 +47,37 @@ export default class Movieform extends Component {
     render() {
         return (
             <div>
-            <form className="movie form">
+            <form className="movie form" onSubmit={this.handleSubmit}>
                 <label htmlFor="title"></label>
-                <input type="text" id="title" name="title"></input>
+                <input 
+                    type="text" 
+                    id="title" name="title" 
+                    onChange={this.handleChange} 
+                    placeholder = 'Add Title'
+                ></input>
                 <label htmlFor="year"></label>
-                <input type="number" id="year" name="year"></input>
+                <input
+                    type="number" 
+                    id="year" name="year" 
+                    onChange={this.handleChange} 
+                    placeholder = 'Add Year'
+                 ></input>
                 <label htmlFor="director"></label>
-                <input type="text" id="director" name="director"></input>
+                <input 
+                    type="text" 
+                    id="director" 
+                    name="director" 
+                    onChange={this.handleChange} 
+                    placeholder = 'Add Director'
+                ></input>
                 <label htmlFor="category"></label>
-                <input type="text" id="category" name="category"></input>
+                <input 
+                    type="text" 
+                    id="category" 
+                    name="category" 
+                    onChange={this.handleChange} 
+                    placeholder = 'Add Category'
+                ></input>
                 <input type="submit" value="Add Movie"></input>
             </form>
             </div>
