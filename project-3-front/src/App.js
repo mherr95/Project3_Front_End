@@ -52,7 +52,6 @@ export default class App extends Component {
     this.setState({
       songs: copySongs,
     })
-    // window.location.reload()
   }
 
   getSongs() {
@@ -71,11 +70,10 @@ export default class App extends Component {
           const copySongs = [...this.state.songs]
           copySongs.splice(findIndex, 1)
           this.setState({
-            song: copySongs
+            songs: copySongs
           })
         }
       })
-    window.location.reload()
   }
 
 
