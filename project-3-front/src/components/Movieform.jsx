@@ -7,7 +7,7 @@ export default class Movieform extends Component {
         super(props)
         this.state = {
             title: '',
-            number: 0,
+            year: 0,
             director: '',
             category: ''
         }
@@ -32,8 +32,8 @@ export default class Movieform extends Component {
             'Content-Type': 'application/json'
           }
         }).then(res => res.json())
-          .then(resJson => {
-            this.props.handleAddMovie(resJson)
+          .then(data => {
+            this.props.handleAddMovie(data)
             this.setState({
               title: '',
               year: 0,
@@ -47,7 +47,7 @@ export default class Movieform extends Component {
     render() {
         return (
             <div>
-            <form className="movie form" onSubmit={this.handleSubmit}>
+            <form className="movie_form" onSubmit={this.handleSubmit}>
                 <label htmlFor="title"></label>
                 <input 
                     type="text" 

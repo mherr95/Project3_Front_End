@@ -7,8 +7,8 @@ class SongForm extends Component {
         super(pros)
 
         this.state = {
-            artists: '',
-            songs: '',
+            artist: '',
+            song: '',
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -25,8 +25,8 @@ class SongForm extends Component {
         fetch(songsURL , {
             method: 'POST',
             body: JSON.stringify({
-                artists: this.state.artists,
-                songs: this.state.songs
+                artist: this.state.artist,
+                song: this.state.song
             }),
             headers: {
                 "Content-Type" : "application/json"
@@ -36,8 +36,8 @@ class SongForm extends Component {
         .then(data => {
             this.props.handleAddSong(data)
             this.setState({
-                artists: '',
-                songs: ''
+                artist: '',
+                song: ''
             })
         })
         .catch(error => console.log({'Error': error}))
@@ -47,18 +47,18 @@ class SongForm extends Component {
         return ( 
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="artists"></label>
+                    <label htmlFor="artist"></label>
                     <input 
                         type="text"
-                        id="artists"
+                        id="artist"
                         onChange = {this.handleChange}
                         value = {this.state.artist}
                         placeholder = 'Add Artist'
                     />
-                    <label htmlFor="songs"></label>
+                    <label htmlFor="song"></label>
                     <input 
                         type="text"
-                        id="songs" 
+                        id="song" 
                         onChange = {this.handleChange}
                         value = {this.state.song}
                         placeholder = 'Add Song'
