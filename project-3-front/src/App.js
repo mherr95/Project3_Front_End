@@ -20,18 +20,6 @@ export default class App extends Component {
   //////////////
   /// Movies
   //////////////
-  // getMovie() {
-  //   fetch(movieURL)
-  //     .then(data => { return data.json()}, err => console.log(err))
-  //     .then(parsedData => this.setState({movie: parsedData}), err => console.log(err))
-  // }
-
-
-  getMovie() {
-    fetch(movieURL)
-    .then(res => {return res.json()})
-    .then(data => this.setState({movies: data}))
-  }
 
   handleAddMovie(movie) {
     const copyMovie = [...this.state.movies]
@@ -39,6 +27,13 @@ export default class App extends Component {
     this.setState({
       movies: copyMovie,
     })
+  }
+
+
+  getMovie() {
+    fetch(movieURL)
+    .then(res => {return res.json()})
+    .then(data => this.setState({movies: data}))
   }
 
 
