@@ -3,8 +3,8 @@ import Movieform from './components/Movieform'
 import SongForm from './components/SongForm'
 
 
-const songsURL = 'http://localhost:3003/songs'
-const moviesURL = 'http://localhost:3003/movies'
+const songURL = 'http://localhost:3003/songs'
+const movieURL = 'http://localhost:3003/movies'
 
 export default class App extends Component {
   constructor(props){
@@ -14,26 +14,30 @@ export default class App extends Component {
       songs: [],
       movies: []
     }
+
   }
 
   //////////////
   /// Movies
   //////////////
+  // getMovie() {
+  //   fetch(movieURL)
+  //     .then(data => { return data.json()}, err => console.log(err))
+  //     .then(parsedData => this.setState({movie: parsedData}), err => console.log(err))
+  // }
+
+
   getMovie() {
-    fetch(moviesURL)
-      .then(data => { return data.json()}, err => console.log(err))
-      .then(parsedData => this.setState({movie: parsedData}), err => console.log(err))
+    fetch(movieURL)
+    .then(res => {return res.json()})
+    .then(data => this.setState({movies: data}))
   }
 
   handleAddMovie(movie) {
-    const copyMovie = [...this.state.movie]
+    const copyMovie = [...this.state.movies]
     copyMovie.unshift(movie)
     this.setState({
-      movie: copyMovie,
-      title: '',
-      year: 0,
-      director: '',
-      category: '' 
+      movies: copyMovie,
     })
   }
 
@@ -48,12 +52,11 @@ export default class App extends Component {
     copySongs.unshift(song)
     this.setState({
       songs: copySongs,
-      name: ''
     })
   }
 
   getSongs() {
-    fetch(songsURL)
+    fetch(songURL)
     .then(res => {return res.json()})
     .then(data => this.setState({songs: data}))
   }
@@ -64,9 +67,9 @@ export default class App extends Component {
       <div>
         <h1>My favorite things</h1>
         <h3>Favorite Songs</h3>
-        <SongForm handleAddSong = {this.handleAddSong} />
+        <SongForm handleAddSong = {() => this.handleAddSong} />
         <h3>Favorite Movies</h3>
-        <Movieform handleAddMovie={this.handleAddMovie}/>
+        <Movieform handleAddMovie={() => this.handleAddMovie}/>
       </div>
     )
   }

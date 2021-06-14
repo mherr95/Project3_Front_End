@@ -7,7 +7,7 @@ export default class Movieform extends Component {
         super(props)
         this.state = {
             title: '',
-            number: 0,
+            year: 0,
             director: '',
             category: ''
         }
