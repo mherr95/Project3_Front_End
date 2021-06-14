@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const moviesURL = 'http://localhost:3003/movies'
+const movieURL = 'http://localhost:3003/movies'
 
 export default class Movieform extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class Movieform extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        fetch(moviesURL,'/movies', {
+        fetch(movieURL, {
           method: 'POST',
           body: JSON.stringify({
               title: this.state.title,
@@ -31,9 +31,9 @@ export default class Movieform extends Component {
           headers: {
             'Content-Type': 'application/json'
           }
-        }).then(res => res.json())
-          .then(resJson => {
-            this.props.handleAddMovie(resJson)
+        }).then(res => {return res.json()})
+          .then(data => {
+            this.props.getMovie()
             this.setState({
               title: '',
               year: 0,
@@ -47,13 +47,15 @@ export default class Movieform extends Component {
     render() {
         return (
             <div>
-            <form className="movie form" onSubmit={this.handleSubmit}>
+            <form className="movie_form" onSubmit={this.handleSubmit}>
                 <label htmlFor="title"></label>
                 <input 
                     type="text" 
-                    id="title" name="title" 
+                    id="title" 
+                    name="title" 
                     onChange={this.handleChange} 
                     placeholder = 'Add Title'
+                    value={this.state.title}
                 ></input>
                 <label htmlFor="year"></label>
                 <input
@@ -61,6 +63,7 @@ export default class Movieform extends Component {
                     id="year" name="year" 
                     onChange={this.handleChange} 
                     placeholder = 'Add Year'
+                    value={this.state.year}
                  ></input>
                 <label htmlFor="director"></label>
                 <input 
@@ -69,6 +72,7 @@ export default class Movieform extends Component {
                     name="director" 
                     onChange={this.handleChange} 
                     placeholder = 'Add Director'
+                    value={this.state.director}
                 ></input>
                 <label htmlFor="category"></label>
                 <input 
@@ -77,9 +81,11 @@ export default class Movieform extends Component {
                     name="category" 
                     onChange={this.handleChange} 
                     placeholder = 'Add Category'
+                    value={this.state.category}
                 ></input>
                 <input type="submit" value="Add Movie"></input>
             </form>
+            <br></br>
             </div>
         )
     }

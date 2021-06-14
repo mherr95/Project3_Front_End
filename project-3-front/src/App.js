@@ -21,10 +21,13 @@ export default class App extends Component {
   //////////////
   /// Movies
   //////////////
-  // getMovie() {
-  //   fetch(movieURL)
-  //     .then(data => { return data.json()}, err => console.log(err))
-  //     .then(parsedData => this.setState({movie: parsedData}), err => console.log(err))
+
+  // handleAddMovie(movie) {
+  //   const copyMovie = [...this.state.movies]
+  //   copyMovie.unshift(movie)
+  //   this.setState({
+  //     movies: copyMovie,
+  //   })
   // }
 
 
@@ -34,12 +37,20 @@ export default class App extends Component {
     .then(data => this.setState({movies: data}))
   }
 
-  handleAddMovie(movie) {
-    const copyMovie = [...this.state.movies]
-    copyMovie.unshift(movie)
-    this.setState({
-      movies: copyMovie,
+  deleteMovie(id) {
+    fetch(movieURL + id, {
+      method: 'DELETE'
     })
+      .then( res => {
+        if(res.status === 200) {
+          const findIndex = this.state.movies.findIndex(movie => movie._id === id)
+          const copyMovies = [...this.state.movies]
+          copyMovies.splice(findIndex, 1)
+          this.setState({
+            movies: copyMovies
+          })
+        }
+      })
   }
 
   /////////////////
@@ -48,21 +59,22 @@ export default class App extends Component {
 
   componentDidMount(){
     this.getSongs()
+    this.getMovie()
   }
 
-  handleAddSong (song) {
-    const copySongs = [...this.state.songs]
-    copySongs.unshift(song)
-    this.setState({
-      songs: copySongs,
-    })
-    // window.location.reload()
-  }
+  // handleAddSong (song) {
+  //   const copySongs = [...this.state.songs]
+  //   copySongs.unshift(song)
+  //   this.setState({
+  //     song: copySongs,
+  //   })
+  // }
 
   getSongs() {
     fetch(songURL)
     .then(res => {return res.json()})
-    .then(data => this.setState({songs: data}))
+    .then(data => {
+      this.setState({songs: data})})
   }
 
   deleteSong(id) {
@@ -75,11 +87,10 @@ export default class App extends Component {
           const copySongs = [...this.state.songs]
           copySongs.splice(findIndex, 1)
           this.setState({
-            song: copySongs
+            songs: copySongs
           })
         }
       })
-    window.location.reload()
   }
 
 
@@ -88,7 +99,7 @@ export default class App extends Component {
       <div>
         <h1>My favorite things</h1>
         <h3>Favorite Songs</h3>
-        <SongForm handleAddSong = {() => this.handleAddSong} />
+        <SongForm  getSongs={() => this.getSongs()}/>
         <table>
           <tbody>
             <tr>
@@ -114,7 +125,33 @@ export default class App extends Component {
           </tbody>
         </table>
         <h3>Favorite Movies</h3>
-        <Movieform handleAddMovie={() => this.handleAddMovie}/>
+        
+        <Movieform getMovie = { () => this.getMovie() } />
+        <table>
+
+        <tbody>
+            <tr>
+              <th>Title</th>
+              <th>Year</th>
+              <th>Director</th>
+              <th>Category</th>
+            </tr>
+          </tbody>
+          
+          <tbody>
+            {this.state.movies.map(movie => {
+              return (
+                <tr key={movie._id}>
+                  <td>{movie.title}</td>
+                  <td>{movie.year}</td>
+                  <td>{movie.director}</td>
+                  <td>{movie.category}</td>
+                  <td><button onDoubleClick={() => this.deleteMovie(movie._id)}>&#128465;</button></td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     );
   }

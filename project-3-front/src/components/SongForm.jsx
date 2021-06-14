@@ -34,7 +34,7 @@ class SongForm extends Component {
         })
         .then(res => {return res.json()})
         .then(data => {
-            this.props.handleAddSong(data)
+            this.props.getSongs()
             this.setState({
                 artist: '',
                 song: ''
