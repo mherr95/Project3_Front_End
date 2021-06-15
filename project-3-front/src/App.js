@@ -33,6 +33,7 @@ export default class App extends Component {
 
 
   getMovie() {
+    console.log('hello')
     fetch(movieURL)
     .then(res => {return res.json()})
     .then(data => this.setState({movies: data}))
