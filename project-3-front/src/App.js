@@ -16,8 +16,20 @@ export default class App extends Component {
       movies: [],
       showForm: false
     }
+    // window.addEventListener("resize", this.update);
 
   }
+
+  // componentDidMount() {
+  //   window.addEventListener("resize", this.windowResized);
+  //   this.updateWindowWidth();
+  // }
+
+  // componentDidUpdate() {
+  //   console.log(
+  //     `Window width/height changed to ${this.state.width}X${this.state.height}`
+  //   );
+  // }
 
   //////////////
   /// Movies
@@ -105,10 +117,22 @@ export default class App extends Component {
         <EditSong toggleEdit={this.toggleEdit} song={this.state.selectedSong} />
       )
     } else {return (
-      <div>
+      <div className="body">
         <h1>My favorite things</h1>
         <h3>Favorite Songs</h3>
-        <SongForm  getSongs={() => this.getSongs()}/>
+        <SongForm  getSongs={() => this.getSongs()}/> <br></br>
+        <div className="shift">
+
+        <table>
+          <tbody>
+            <tr>
+              <th>Artist</th>
+              <th>Song Titile </th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </tbody>
+        </table>
         <table>
           <tbody>
             { this.state.songs.map(song => {
@@ -124,9 +148,20 @@ export default class App extends Component {
             }
           </tbody>
         </table>
+        </div>
         <h3>Favorite Movies</h3>
-        <Movieform getMovie = { () => this.getMovie() } />
+        <Movieform getMovie = { () => this.getMovie() } /><br></br>
+        <div className="shift">
         <table>
+        <tbody>
+            <tr>
+              <th>Title</th>
+              <th>Year </th>
+              <th>Director</th>
+              <th>Category</th>
+              <th>Delete</th>
+            </tr>
+          </tbody>
           <tbody>
             {this.state.movies.map(movie => {
               return (
@@ -141,6 +176,7 @@ export default class App extends Component {
             })}
           </tbody>
         </table>
+        </div>
       </div>
     )}
     
