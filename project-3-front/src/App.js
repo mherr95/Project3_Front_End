@@ -113,7 +113,7 @@ export default class App extends Component {
                   <tr key={song._id} >
                     <td>{song.artist}</td>
                     <td>{song.song}</td>
-                    <td><button onClick={() => this.toggleEdit()}>&#9997;</button></td>
+                    {/* <td><button onClick={() => this.toggleEdit()}>&#9997;</button></td>
                     { this.state.showForm &&
                         <td>
                           <form >
@@ -134,7 +134,7 @@ export default class App extends Component {
                             <input type="submit" value="Update Song"/>
                           </form>
                         </td>
-                      }
+                      } */}
                     <td><button onDoubleClick={() => this.deleteSong(song._id)}>&#128465;</button></td>
                   </tr>
               )
@@ -153,6 +153,7 @@ export default class App extends Component {
                   <td>{movie.year}</td>
                   <td>{movie.director}</td>
                   <td>{movie.category}</td>
+                  <td><button>&#9997;</button></td>
                   <td><button onDoubleClick={() => this.deleteMovie(movie._id)}>&#128465;</button></td>
                 </tr>
               )
